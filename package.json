@@ -1,0 +1,97 @@
+{
+  "name": "electron-webpack-template",
+  "author": "Innei",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "cross-env NODE_ENV=production electron-webpack",
+    "start": "electron-webpack dev",
+    "package": "yarn build && electron-builder build --publish never"
+  },
+  "dependencies": {
+    "source-map-support": "0.5.19"
+  },
+  "devDependencies": {
+    "@types/node": "14.0.23",
+    "cross-env": "7.0.2",
+    "electron": "9.1.0",
+    "electron-builder": "22.7.0",
+    "electron-webpack": "2.8.2",
+    "electron-webpack-ts": "4.0.1",
+    "typescript": "3.9.6",
+    "webpack": "4.43.0"
+  },
+  "build": {
+    "appId": "com.innei.electron-template",
+    "productName": "template",
+    "extraMetadata": {
+      "main": "main.js"
+    },
+    "copyright": "Copyright © 2019-2020 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "files": [
+      "package.json",
+      "resources/**/*",
+      "static",
+      {
+        "from": "dist/main"
+      },
+      {
+        "from": "dist/renderer"
+      }
+    ],
+    "extends": null,
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "icon": "resources/icon.ico",
+      "target": [
+        "nsis",
+        "msi"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "resources/icon.ico"
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "extraResources": [
+      {
+        "from": "resources/",
+        "to": "resources/"
+      },
+      {
+        "from": "static",
+        "to": "static"
+      }
+    ]
+  }
+}
